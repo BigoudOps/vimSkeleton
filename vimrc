@@ -1,3 +1,7 @@
+set nu
+filetype on
+filetype indent on
+syntax on
 autocmd BufNewFile *.sh 0r ~/.vim/templates/skeleton.sh | call ReplacePlaceholders()
 
 autocmd BufWritePre *.sh call UpdateLastModified()
