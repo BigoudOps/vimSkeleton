@@ -1,4 +1,33 @@
 set nu
+" tab de 4 espaces
+set tabstop=4
+" indentation auto de 4
+set shiftwidth=4
+" combien d'espace quand on appuit sur tab
+set softtabstop=4
+" ne pas remplacer des tabs par des espaces (remplacer par set expandtab si vous voulez des espaces)
+set noexpandtab
+" indentation auto
+set autoindent
+" indentation intelligente, ne foncitonne pas avec tous les languages de prog
+set smartindent
+" indentation pour le c
+set cindent
+set encoding=utf-8
+" applique la conf vim si une ligne de conf pour vim existe
+set modelines=1
+" ne fait pas de compatibilité entre vi et vim
+set nocompatible
+
+" set-up du mode recherche
+set ignorecase
+set smartcase
+set	incsearch
+set	showmatch
+set	hlsearch
+hi	Search ctermbg=White
+hi	Search ctermfg=Blue
+
 filetype on
 filetype indent on
 syntax on
@@ -12,6 +41,15 @@ autocmd BufNewFile *.sh 0r ~/.vim/templates/skeleton.sh | call ReplacePlaceholde
 
 " Mettre à jour la date de dernière modification à chaque sauvegarde
 autocmd BufWritePre *.md,*.yaml,*.yml,*.py,*.html,*.sh call UpdateLastModified()
+
+" Indentation des fichiers yaml
+autocmd FileType yaml setlocal ai ts=2 sw=2 et
+
+" Nouvelle onglet
+function NewTab()
+	:tabnew
+	:Explore
+endfunction
 
 " Fonction pour remplacer les balises {{DATE_CREATION}} et {{LAST_MODIFIED}}
 function! ReplacePlaceholders()
@@ -42,3 +80,29 @@ function! UpdateLastModified()
     endif
 endfunction
 
+
+" Paramètrage des binding
+
+" resize window
+nnoremap <F2> :vertical resize -1<CR>
+nnoremap <F3> :vertical resize +1<CR>
+nnoremap <F4> :resize +1<CR>
+nnoremap <F5> :resize -1<CR>
+
+"	Shift-F5 voir les caractères invisibles
+set		listchars=eol:$,tab:→\ ,trail:.,space:·,extends:>,precedes:<,nbsp:_
+noremap <S-F5> :set list!<CR>
+inoremap <S-F5> <C-o>:set list!<CR>
+cnoremap <S-F5> <C-c>:set list!<CR>
+
+nnoremap <F6> :set relativenumber<CR>
+" shift F6
+nnoremap <S-F6> :set norelativenumber<CR>
+
+" ajouter un nouvel onglet
+nnoremap <F9> :call NewTab()<CR>
+
+" F10 pour changer d'onglet vers la droite
+nnoremap <F10> gt<CR>
+" shift f10 pour changer d'onglet vers la gauche
+nnoremap <S-F10> gT<CR>
